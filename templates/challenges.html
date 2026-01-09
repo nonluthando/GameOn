@@ -1,1 +1,43 @@
 
+{% extends "base.html" %}
+{% block title %}GameOn | Challenges{% endblock %}
+
+{% block content %}
+<h2>Challenges</h2>
+
+{% if challenges %}
+<table>
+    <thead>
+        <tr>
+            <th>CHALLENGE</th>
+            <th>GAME</th>
+            <th>STATUS</th>
+            <th>CREATED</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in challenges %}
+        <tr>
+            <td>{{ c.challenger }} → {{ c.opponent }}</td>
+            <td>{{ c.game }}</td>
+            <td>
+                <span class="status {{ c.status|lower }}">
+                    {{ c.status }}
+                </span>
+            </td>
+            <td>{{ c.created_at }}</td>
+            <td>
+                <a href="{{ url_for('challenge_detail', challenge_id=c.id) }}">
+                    View
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No challenges yet. Be the first to call someone out.</p>
+{% endif %}
+
+{% endblock %}
