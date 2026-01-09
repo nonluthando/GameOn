@@ -1,1 +1,34 @@
+{% extends "base.html" %}
+{% block title %}GameOn | Challenge{% endblock %}
 
+{% block content %}
+<h2>Challenge Details</h2>
+
+<p><strong>Challenger:</strong> {{ challenge.challenger }}</p>
+<p><strong>Opponent:</strong> {{ challenge.opponent }}</p>
+<p><strong>Game:</strong> {{ challenge.game }}</p>
+<p><strong>Status:</strong> {{ challenge.status }}</p>
+
+{% if challenge.status == "PENDING" %}
+<form method="post" action="{{ url_for('accept_challenge', challenge_id=challenge.id) }}">
+    <button type="submit">Accept Challenge</button>
+</form>
+{% endif %}
+
+{% if challenge.status == "ACCEPTED" %}
+<form method="post" action="{{ url_for('complete_challenge', challenge_id=challenge.id) }}">
+    <label>Winner</label>
+    <select name="winner" required>
+        <option value="{{ challenge.challenger }}">{{ challenge.challenger }}</option>
+        <option value="{{ challenge.opponent }}">{{ challenge.opponent }}</option>
+    </select>
+    <button type="submit">Mark as Completed</button>
+</form>
+{% endif %}
+
+{% if challenge.status == "COMPLETED" %}
+<p><strong>Winner:</strong> {{ challenge.winner }} 🏆</p>
+{% endif %}
+
+<a href="{{ url_for('list_challenges') }}">← Back</a>
+{% endblock %}
