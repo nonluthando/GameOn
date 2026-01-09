@@ -1,1 +1,33 @@
 
+{% extends "base.html" %}
+{% block title %}GameOn | New Challenge{% endblock %}
+
+{% block content %}
+<h2>New Challenge</h2>
+
+<form method="post" class="form">
+    <label>Challenger</label>
+    <input type="text" name="challenger" required>
+
+    <label>Opponent</label>
+    <input type="text" name="opponent" required>
+
+    <label>Game</label>
+    <select name="game" id="game-select" required>
+        <option value="Fortnite">Fortnite</option>
+        <option value="COD">Call of Duty</option>
+        <option value="FIFA">FIFA</option>
+        <option value="Minecraft">Minecraft</option>
+        <option value="OTHER">Other</option>
+    </select>
+
+    <div id="custom-game-field" style="display:none;">
+        <label>Specify game</label>
+        <input type="text" name="custom_game" placeholder="Enter game name">
+    </div>
+
+    <button type="submit">Create Challenge</button>
+</form>
+
+<a href="{{ url_for('list_challenges') }}">← Back</a>
+{% endblock %}
